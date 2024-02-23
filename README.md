@@ -2,7 +2,7 @@
 
 ## Description
 
--
+This is the Frontend of the Scoring App.
 
 ## Installing and start up
 
@@ -16,11 +16,11 @@ This project is made with React+Vite and runs on localhost (http://127.0.0.1:517
 
 ## Design decisions
 
--
+Big thanks to Maximilian Schwarzmüller for The MERN Fullstack Guide.
 
 ## NB
 
--
+This project is in progress.
 
 ## Known errors
 
