@@ -26,6 +26,9 @@ const NavLinks = (props) => {
       <li>
         <NavLink to="/auth">AUTHENTICATE</NavLink>
       </li>
+      <li>
+        <NavLink to="/TODO3">LOGOUT</NavLink>
+      </li>
     </ul>
   );
 };
