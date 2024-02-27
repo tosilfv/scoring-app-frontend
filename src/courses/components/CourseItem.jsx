@@ -9,8 +9,9 @@ const CourseItem = (props) => {
     <li className="course-item">
       <Card className="course-item__content">
         <div className="course-item__info">
-          <h3>{props.name}</h3>
-          <h2>{props.code}</h2>
+          <h2>{props.name}</h2>
+          <h3>{props.code}</h3>
+          <h3>{props.description}</h3>
           <h3>{props.credits}</h3>
           <h3>{props.registeringTime}</h3>
           <h3>{props.schedule}</h3>

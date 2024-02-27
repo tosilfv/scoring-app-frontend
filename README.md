@@ -20,7 +20,7 @@ Big thanks to Maximilian Schwarzmüller for The MERN Fullstack Guide.
 
 ## NB
 
-This project is in progress.
+This project is a work in progress.
 
 ## Known errors
 

@@ -22,12 +22,13 @@ const CourseList = (props) => {
         <CourseItem
           key={course.id}
           id={course.id}
+          userId={course.user}
           name={course.name}
           code={course.code}
+          description={course.description}
           credits={course.credits}
           registeringTime={course.registeringTime}
           schedule={course.schedule}
-          userId={course.user}
           labs={course.labs}
           passwords={course.passwords}
           users={course.users}
