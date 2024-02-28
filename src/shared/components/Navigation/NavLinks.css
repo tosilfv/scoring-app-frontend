@@ -1,13 +1,13 @@
 .nav-links {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .nav-links li {
@@ -29,12 +29,12 @@
 }
 
 .nav-links button {
-  cursor: pointer;
+  background: transparent;
   border: 1px solid #292929;
   color: #292929;
-  background: transparent;
-  padding: 0.5rem;
+  cursor: pointer;
   font: inherit;
+  padding: 0.5rem;
 }
 
 .nav-links button:focus {
@@ -62,9 +62,9 @@
   }
 
   .nav-links button {
+    background: transparent;
     border: 1px solid #8ac2d6;
     color: #8ac2d6;
-    background: transparent;
   }
 
   .nav-links button:hover,

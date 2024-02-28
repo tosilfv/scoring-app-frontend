@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
 import CourseItem from "./CourseItem";
 import "./CourseList.css";
@@ -10,7 +10,7 @@ const CourseList = (props) => {
       <div className="course-list center">
         <Card>
           <h2>No courses found. Maybe create one?</h2>
-          <button>Create Course</button>
+          <Button to="/courses/new">Create Course</Button>
         </Card>
       </div>
     );
