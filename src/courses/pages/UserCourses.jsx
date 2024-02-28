@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import CourseList from "../components/CourseList";
 
 const DUMMY_COURSES = [
