@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
 import Backdrop from "../UIElements/Backdrop";
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
@@ -7,6 +8,7 @@ import SideDrawer from "./SideDrawer";
 import "./MainNavigation.css";
 
 const MainNavigation = (props) => {
+  const auth = useContext(AuthContext);
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   const openDrawerHandler = () => {
@@ -16,6 +18,14 @@ const MainNavigation = (props) => {
   const closeDrawerHandler = () => {
     setDrawerIsOpen(false);
   };
+
+  let scoringHeader;
+
+  if (auth.isLoggedIn) {
+    scoringHeader = "Dashboard";
+  } else {
+    scoringHeader = "Scoring App";
+  }
 
   return (
     <React.Fragment>
@@ -36,7 +46,7 @@ const MainNavigation = (props) => {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">Dashboard</Link>
+          <Link to="/">{scoringHeader}</Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />
