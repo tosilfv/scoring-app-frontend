@@ -10,25 +10,8 @@
   text-decoration: none;
 }
 
-.button:focus {
-  outline: none;
-}
-
-.button:hover,
-.button:active {
-  background: #ff4382;
-  border-color: #ff4382;
-}
-
-.button--inverse {
-  background: transparent;
-  color: #ff0055;
-}
-
-.button--inverse:hover,
-.button--inverse:active {
-  background: #ff0055;
-  color: white;
+.button--big {
+  font-size: 1.5rem;
 }
 
 .button--danger {
@@ -51,10 +34,27 @@
   cursor: not-allowed;
 }
 
-.button--small {
-  font-size: 0.8rem;
+.button:focus {
+  outline: none;
 }
 
-.button--big {
-  font-size: 1.5rem;
+.button:hover,
+.button:active {
+  background: #ff4382;
+  border-color: #ff4382;
+}
+
+.button--inverse {
+  background: transparent;
+  color: #ff0055;
+}
+
+.button--inverse:hover,
+.button--inverse:active {
+  background: #ff0055;
+  color: white;
+}
+
+.button--small {
+  font-size: 0.8rem;
 }

@@ -11,12 +11,12 @@ const MainNavigation = (props) => {
   const auth = useContext(AuthContext);
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
-  const openDrawerHandler = () => {
-    setDrawerIsOpen(true);
-  };
-
   const closeDrawerHandler = () => {
     setDrawerIsOpen(false);
+  };
+
+  const openDrawerHandler = () => {
+    setDrawerIsOpen(true);
   };
 
   let scoringHeader;

@@ -1,3 +1,11 @@
+.main-navigation__drawer-nav {
+  height: 100%;
+}
+
+.main-navigation__header-nav {
+  display: none;
+}
+
 .main-navigation__menu-btn {
   background: transparent;
   border: none;
@@ -27,20 +35,12 @@
   text-decoration: none;
 }
 
-.main-navigation__header-nav {
-  display: none;
-}
-
-.main-navigation__drawer-nav {
-  height: 100%;
-}
-
 @media (min-width: 1012px) {
-  .main-navigation__menu-btn {
-    display: none;
-  }
-
   .main-navigation__header-nav {
     display: block;
+  }
+
+  .main-navigation__menu-btn {
+    display: none;
   }
 }

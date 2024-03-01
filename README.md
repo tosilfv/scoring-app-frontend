@@ -17,6 +17,8 @@ This project is made with React+Vite and runs on localhost (http://127.0.0.1:517
 ## Design decisions
 
 Big thanks to Maximilian Schwarzmüller for The MERN Fullstack Guide.
+<br />
+Favicon was created with https://favicon.io/favicon-generator/
 
 ## NB
 

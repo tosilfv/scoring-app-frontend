@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
+import { useForm } from "../../shared/hooks/form-hook";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -29,6 +29,12 @@ const Authenticate = () => {
     false
   );
 
+  const authSubmitHandler = (event) => {
+    event.preventDefault();
+    auth.login();
+    console.log(formState.inputs); // send this to the backend!
+  };
+
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
@@ -51,12 +57,6 @@ const Authenticate = () => {
       );
     }
     setIsLoginMode((prevMode) => !prevMode);
-  };
-
-  const authSubmitHandler = (event) => {
-    event.preventDefault();
-    auth.login();
-    console.log(formState.inputs); // send this to the backend!
   };
 
   return (

@@ -40,8 +40,8 @@ const DUMMY_COURSES = [
 ];
 
 const UpdateCourse = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const courseId = useParams().courseId;
+  const [isLoading, setIsLoading] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -152,7 +152,7 @@ const UpdateCourse = () => {
   if (isLoading) {
     return (
       <div className="center">
-        <h2>Loading.</h2>
+        <h2>Loading . . .</h2>
       </div>
     );
   }
@@ -186,7 +186,7 @@ const UpdateCourse = () => {
         element="textarea"
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid description (min. 5 characters)."
+        errorText="Please enter a valid description of at least 5 characters."
         onInput={inputHandler}
         initialValue={formState.inputs.description.value}
         initialValid={formState.inputs.description.isValid}

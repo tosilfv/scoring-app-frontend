@@ -9,10 +9,6 @@ const CourseItem = (props) => {
   const auth = useContext(AuthContext);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
-  };
-
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
   };
@@ -20,6 +16,10 @@ const CourseItem = (props) => {
   const confirmDeleteHandler = () => {
     setShowConfirmModal(false);
     console.log("DELETING.");
+  };
+
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
   };
 
   return (
@@ -59,7 +59,7 @@ const CourseItem = (props) => {
             <p>{props.users}</p>
           </div>
           <div className="course-item__actions">
-            <Button to={`/`} inverse>
+            <Button to={`/TODO1`} inverse>
               JOIN COURSE
             </Button>
             {auth.isLoggedIn && (
