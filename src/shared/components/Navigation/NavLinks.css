@@ -10,10 +10,6 @@
   width: 100%;
 }
 
-.nav-links li {
-  margin: 1rem;
-}
-
 .nav-links a {
   border: 1px solid transparent;
   color: #292929;
@@ -47,13 +43,13 @@
   color: #8ac2d6;
 }
 
+.nav-links li {
+  margin: 1rem;
+}
+
 @media (min-width: 1012px) {
   .nav-links {
     flex-direction: row;
-  }
-
-  .nav-links li {
-    padding-right: 0.4rem;
   }
 
   .nav-links a {
@@ -71,5 +67,9 @@
   .nav-links button:active {
     background: #f8df00;
     color: #292929;
+  }
+
+  .nav-links li {
+    padding-right: 0.4rem;
   }
 }

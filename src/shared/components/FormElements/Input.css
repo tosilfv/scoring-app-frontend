@@ -3,15 +3,20 @@
   margin: 1rem 0;
 }
 
-.form-control label,
-.form-control input,
-.form-control textarea {
-  display: block;
-}
-
 .form-control label {
   font-weight: bold;
   margin-bottom: 0.5rem;
+}
+
+.form-control--invalid label,
+.form-control--invalid p {
+  color: red;
+}
+
+.form-control--invalid input,
+.form-control--invalid textarea {
+  background: #ffd1d1;
+  border-color: red;
 }
 
 .form-control input,
@@ -31,13 +36,8 @@
   outline: none;
 }
 
-.form-control--invalid label,
-.form-control--invalid p {
-  color: red;
-}
-
-.form-control--invalid input,
-.form-control--invalid textarea {
-  background: #ffd1d1;
-  border-color: red;
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
 }

@@ -9,7 +9,7 @@ const CourseList = (props) => {
     return (
       <div className="course-list center">
         <Card>
-          <h2>No courses found. Maybe create one?</h2>
+          <h2>No courses found.</h2>
           <Button to="/courses/new">Create Course</Button>
         </Card>
       </div>

@@ -81,7 +81,7 @@ const NewCourse = () => {
         element="textarea"
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid description (at least 5 characters)."
+        errorText="Please enter a valid description of at least 5 characters."
         onInput={inputHandler}
       />
       <Input
