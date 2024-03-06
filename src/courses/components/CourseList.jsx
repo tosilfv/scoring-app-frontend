@@ -9,7 +9,7 @@ const CourseList = (props) => {
     return (
       <div className="course-list center">
         <Card>
-          <h2>No courses found.</h2>
+          <h2>No courses were found.</h2>
           <Button to="/courses/new">Create Course</Button>
         </Card>
       </div>
@@ -32,6 +32,7 @@ const CourseList = (props) => {
           labs={course.labs}
           passwords={course.passwords}
           users={course.users}
+          onDelete={props.onDeletePlace}
         />
       ))}
     </ul>

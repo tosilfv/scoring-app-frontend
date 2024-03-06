@@ -8,11 +8,11 @@ const SideDrawer = (props) => {
   const nodeRef = useRef(null); // silence "CSSTransition using findDOMNode" warning
   const content = (
     <CSSTransition
-      nodeRef={nodeRef}
-      in={props.show}
-      timeout={200}
       classNames="slide-in-left"
+      in={props.show}
       mountOnEnter
+      nodeRef={nodeRef}
+      timeout={200}
       unmountOnExit
     >
       <aside
