@@ -10,10 +10,10 @@ const UserItem = (props) => {
       <Card className="user-item__content">
         <Link to={`/${props.id}/courses`}>
           <div className="user-item__image">
-            <Avatar image={props.image} alt={props.username} />
+            <Avatar image={props.image} alt={props.name} />
           </div>
           <div className="user-item__info">
-            <h2>{props.username}</h2>
+            <h2>{props.name}</h2>
             <h3>
               {props.courseCount}{" "}
               {props.courseCount === 1 ? "Course" : "Courses"}

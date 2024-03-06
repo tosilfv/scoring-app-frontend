@@ -8,23 +8,18 @@ import UpdateCourse from "./courses/pages/UpdateCourse";
 import UserCourses from "./courses/pages/UserCourses";
 import Users from "./user/pages/Users";
 
-const style = {
-  main: {
-    fontFamily: "Love Ya Like A Sister",
-    letterSpacing: 3,
-    margin: 10,
-  },
-};
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  const login = useCallback(() => {
+  const login = useCallback((uid) => {
     setIsLoggedIn(true);
+    setUserId(uid);
   }, []);
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    setUserId(null);
   }, []);
 
   let routes;
@@ -51,11 +46,16 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: isLoggedIn,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
         <MainNavigation />
-        <main style={style.main}>{routes}</main>
+        <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
   );

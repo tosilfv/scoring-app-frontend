@@ -1,47 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../shared/context/auth-context";
 import { useForm } from "../../shared/hooks/form-hook";
-import { useParams } from "react-router-dom";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import {
-  VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Input from "../../shared/components/FormElements/Input";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import "./CourseForm.css";
 
-const DUMMY_COURSES = [
-  {
-    id: "c1",
-    user: "u1",
-    name: "Course One",
-    code: "123456ABCDE",
-    description: "Course one",
-    credits: "5",
-    registeringTime: "registeringTime",
-    schedule: "schedule",
-    labs: "labs",
-    passwords: "passwords",
-    users: "users",
-  },
-  {
-    id: "c2",
-    user: "u1",
-    name: "Course Two",
-    code: "789012FGHIJ",
-    description: "Course two",
-    credits: "3",
-    registeringTime: "registeringTime",
-    schedule: "schedule",
-    labs: "labs",
-    passwords: "passwords",
-    users: "users",
-  },
-];
-
 const UpdateCourse = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedCourse, setLoadedCourse] = useState();
+  const auth = useContext(AuthContext);
   const courseId = useParams().courseId;
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -85,61 +63,97 @@ const UpdateCourse = () => {
     false
   );
 
-  const identifiedCourse = DUMMY_COURSES.find((c) => c.id === courseId);
-
   useEffect(() => {
-    if (identifiedCourse) {
-      setFormData(
-        {
-          name: {
-            value: identifiedCourse.name,
-            isValid: true,
+    const fetchCourse = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/courses/${courseId}`
+        );
+        setLoadedCourse(responseData.course);
+        setFormData(
+          {
+            name: {
+              value: responseData.course.name,
+              isValid: true,
+            },
+            code: {
+              value: responseData.course.code,
+              isValid: true,
+            },
+            description: {
+              value: responseData.course.description,
+              isValid: true,
+            },
+            credits: {
+              value: responseData.course.credits,
+              isValid: true,
+            },
+            registeringTime: {
+              value: responseData.course.registeringTime,
+              isValid: true,
+            },
+            schedule: {
+              value: responseData.course.schedule,
+              isValid: true,
+            },
+            labs: {
+              value: responseData.course.labs,
+              isValid: true,
+            },
+            passwords: {
+              value: responseData.course.passwords,
+              isValid: true,
+            },
+            users: {
+              value: responseData.course.users,
+              isValid: true,
+            },
           },
-          code: {
-            value: identifiedCourse.code,
-            isValid: true,
-          },
-          description: {
-            value: identifiedCourse.description,
-            isValid: true,
-          },
-          credits: {
-            value: identifiedCourse.credits,
-            isValid: true,
-          },
-          registeringTime: {
-            value: identifiedCourse.registeringTime,
-            isValid: true,
-          },
-          schedule: {
-            value: identifiedCourse.schedule,
-            isValid: true,
-          },
-          labs: {
-            value: identifiedCourse.labs,
-            isValid: true,
-          },
-          passwords: {
-            value: identifiedCourse.passwords,
-            isValid: true,
-          },
-          users: {
-            value: identifiedCourse.users,
-            isValid: true,
-          },
-        },
-        true
-      );
-    }
-    setIsLoading(false);
-  }, [setFormData, identifiedCourse]);
+          true
+        );
+      } catch (err) {
+        console.log("UpdateCourse useEffect err: ", err);
+      }
+    };
+    fetchCourse();
+  }, [courseId, sendRequest, setFormData]);
 
-  const courseUpdateSubmitHandler = (event) => {
+  const courseUpdateSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/courses/${courseId}`,
+        "PATCH",
+        JSON.stringify({
+          name: formState.inputs.name.value,
+          code: formState.inputs.code.value,
+          description: formState.inputs.description.value,
+          credits: formState.inputs.credits.value,
+          registeringTime: formState.inputs.registeringTime.value,
+          schedule: formState.inputs.schedule.value,
+          labs: formState.inputs.labs.value,
+          passwords: formState.inputs.passwords.value,
+          users: formState.inputs.users.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      navigate("/" + auth.userId + "/courses");
+    } catch (err) {
+      console.log("UpdateCourse courseUpdateSubmitHandler err: ", err);
+    }
   };
 
-  if (!identifiedCourse) {
+  if (isLoading) {
+    return (
+      <div className="center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (!loadedCourse && !error) {
     return (
       <div className="center">
         <Card>
@@ -149,115 +163,112 @@ const UpdateCourse = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="center">
-        <h2>Loading . . .</h2>
-      </div>
-    );
-  }
-
   return (
-    <form className="course-form" onSubmit={courseUpdateSubmitHandler}>
-      <Input
-        id="name"
-        element="input"
-        type="text"
-        label="Course Name"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid name."
-        onInput={inputHandler}
-        initialValue={formState.inputs.name.value}
-        initialValid={formState.inputs.name.isValid}
-      />
-      <Input
-        id="code"
-        element="input"
-        type="text"
-        label="Course code"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid code."
-        onInput={inputHandler}
-        initialValue={formState.inputs.code.value}
-        initialValid={formState.inputs.code.isValid}
-      />
-      <Input
-        id="description"
-        element="textarea"
-        label="Description"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid description of at least 5 characters."
-        onInput={inputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
-      />
-      <Input
-        id="credits"
-        element="input"
-        type="text"
-        label="Credits"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter valid credits."
-        onInput={inputHandler}
-        initialValue={formState.inputs.credits.value}
-        initialValid={formState.inputs.credits.isValid}
-      />
-      <Input
-        id="registeringTime"
-        element="input"
-        type="text"
-        label="Registering Time"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid Registering Time."
-        onInput={inputHandler}
-        initialValue={formState.inputs.registeringTime.value}
-        initialValid={formState.inputs.registeringTime.isValid}
-      />
-      <Input
-        id="schedule"
-        element="input"
-        type="text"
-        label="Schedule"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid schedule."
-        onInput={inputHandler}
-        initialValue={formState.inputs.schedule.value}
-        initialValid={formState.inputs.schedule.isValid}
-      />
-      <Input
-        id="labs"
-        element="textarea"
-        label="Labs"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter valid labs."
-        onInput={inputHandler}
-        initialValue={formState.inputs.labs.value}
-        initialValid={formState.inputs.labs.isValid}
-      />
-      <Input
-        id="passwords"
-        element="textarea"
-        label="Passwords"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid passwords."
-        onInput={inputHandler}
-        initialValue={formState.inputs.passwords.value}
-        initialValid={formState.inputs.passwords.isValid}
-      />
-      <Input
-        id="users"
-        element="textarea"
-        label="Users"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter valid users."
-        onInput={inputHandler}
-        initialValue={formState.inputs.users.value}
-        initialValid={formState.inputs.users.isValid}
-      />
-      <Button type="submit" disabled={!formState.isValid}>
-        UPDATE COURSE
-      </Button>
-    </form>
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {!isLoading && loadedCourse && (
+        <form className="course-form" onSubmit={courseUpdateSubmitHandler}>
+          <Input
+            id="name"
+            element="input"
+            type="text"
+            label="Course Name"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid name."
+            onInput={inputHandler}
+            initialValue={loadedCourse.name}
+            initialValid={true}
+          />
+          <Input
+            id="code"
+            element="input"
+            type="text"
+            label="Course code"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid code."
+            onInput={inputHandler}
+            initialValue={loadedCourse.code}
+            initialValid={true}
+          />
+          <Input
+            id="description"
+            element="textarea"
+            label="Description"
+            validators={[VALIDATOR_MINLENGTH(5)]}
+            errorText="Please enter a valid description of at least 5 characters."
+            onInput={inputHandler}
+            initialValue={loadedCourse.description}
+            initialValid={true}
+          />
+          <Input
+            id="credits"
+            element="input"
+            type="text"
+            label="Credits"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter valid credits."
+            onInput={inputHandler}
+            initialValue={loadedCourse.credits}
+            initialValid={true}
+          />
+          <Input
+            id="registeringTime"
+            element="input"
+            type="text"
+            label="Registering Time"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid Registering Time."
+            onInput={inputHandler}
+            initialValue={loadedCourse.registeringTime}
+            initialValid={true}
+          />
+          <Input
+            id="schedule"
+            element="input"
+            type="text"
+            label="Schedule"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid schedule."
+            onInput={inputHandler}
+            initialValue={loadedCourse.schedule}
+            initialValid={true}
+          />
+          <Input
+            id="labs"
+            element="textarea"
+            label="Labs"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter valid labs."
+            onInput={inputHandler}
+            initialValue={loadedCourse.labs}
+            initialValid={true}
+          />
+          <Input
+            id="passwords"
+            element="textarea"
+            label="Passwords"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid passwords."
+            onInput={inputHandler}
+            initialValue={loadedCourse.passwords}
+            initialValid={true}
+          />
+          <Input
+            id="users"
+            element="textarea"
+            label="Users"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter valid users."
+            onInput={inputHandler}
+            initialValue={loadedCourse.users}
+            initialValid={true}
+          />
+          <Button type="submit" disabled={!formState.isValid}>
+            UPDATE COURSE
+          </Button>
+        </form>
+      )}
+    </React.Fragment>
   );
 };
 
