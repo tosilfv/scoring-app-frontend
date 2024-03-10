@@ -25,6 +25,8 @@
 }
 
 .user-item__image {
+  background-color: #00ff00;
+  border-radius: 50px;
   height: 4rem;
   margin-right: 1rem;
   width: 4rem;

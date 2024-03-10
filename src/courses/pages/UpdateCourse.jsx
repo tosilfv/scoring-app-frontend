@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -15,9 +15,9 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import "./CourseForm.css";
 
 const UpdateCourse = () => {
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedCourse, setLoadedCourse] = useState();
-  const auth = useContext(AuthContext);
   const courseId = useParams().courseId;
   const navigate = useNavigate();
 
@@ -111,12 +111,10 @@ const UpdateCourse = () => {
           },
           true
         );
-      } catch (err) {
-        console.log("UpdateCourse useEffect err: ", err);
-      }
+      } catch (err) {}
     };
     fetchCourse();
-  }, [courseId, sendRequest, setFormData]);
+  }, [sendRequest, courseId, setFormData]);
 
   const courseUpdateSubmitHandler = async (event) => {
     event.preventDefault();
@@ -140,9 +138,7 @@ const UpdateCourse = () => {
         }
       );
       navigate("/" + auth.userId + "/courses");
-    } catch (err) {
-      console.log("UpdateCourse courseUpdateSubmitHandler err: ", err);
-    }
+    } catch (err) {}
   };
 
   if (isLoading) {
@@ -157,7 +153,7 @@ const UpdateCourse = () => {
     return (
       <div className="center">
         <Card>
-          <h2>Could not find a course.</h2>
+          <h2>Could not find course!</h2>
         </Card>
       </div>
     );
@@ -176,8 +172,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid name."
             onInput={inputHandler}
-            initialValue={loadedCourse.name}
-            initialValid={true}
+            initialValue={formState.inputs.name.value}
+            initialValid={formState.inputs.name.isValid}
           />
           <Input
             id="code"
@@ -187,8 +183,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid code."
             onInput={inputHandler}
-            initialValue={loadedCourse.code}
-            initialValid={true}
+            initialValue={formState.inputs.code.value}
+            initialValid={formState.inputs.code.isValid}
           />
           <Input
             id="description"
@@ -197,8 +193,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description of at least 5 characters."
             onInput={inputHandler}
-            initialValue={loadedCourse.description}
-            initialValid={true}
+            initialValue={formState.inputs.description.value}
+            initialValid={formState.inputs.description.isValid}
           />
           <Input
             id="credits"
@@ -208,8 +204,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter valid credits."
             onInput={inputHandler}
-            initialValue={loadedCourse.credits}
-            initialValid={true}
+            initialValue={formState.inputs.credits.value}
+            initialValid={formState.inputs.credits.isValid}
           />
           <Input
             id="registeringTime"
@@ -219,8 +215,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid Registering Time."
             onInput={inputHandler}
-            initialValue={loadedCourse.registeringTime}
-            initialValid={true}
+            initialValue={formState.inputs.registeringTime.value}
+            initialValid={formState.inputs.registeringTime.isValid}
           />
           <Input
             id="schedule"
@@ -230,8 +226,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid schedule."
             onInput={inputHandler}
-            initialValue={loadedCourse.schedule}
-            initialValid={true}
+            initialValue={formState.inputs.schedule.value}
+            initialValid={formState.inputs.schedule.isValid}
           />
           <Input
             id="labs"
@@ -240,8 +236,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter valid labs."
             onInput={inputHandler}
-            initialValue={loadedCourse.labs}
-            initialValid={true}
+            initialValue={formState.inputs.labs.value}
+            initialValid={formState.inputs.labs.isValid}
           />
           <Input
             id="passwords"
@@ -250,8 +246,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid passwords."
             onInput={inputHandler}
-            initialValue={loadedCourse.passwords}
-            initialValid={true}
+            initialValue={formState.inputs.passwords.value}
+            initialValid={formState.inputs.passwords.isValid}
           />
           <Input
             id="users"
@@ -260,8 +256,8 @@ const UpdateCourse = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter valid users."
             onInput={inputHandler}
-            initialValue={loadedCourse.users}
-            initialValid={true}
+            initialValue={formState.inputs.users.value}
+            initialValid={formState.inputs.users.isValid}
           />
           <Button type="submit" disabled={!formState.isValid}>
             UPDATE COURSE

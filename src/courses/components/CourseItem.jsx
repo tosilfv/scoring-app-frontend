@@ -1,17 +1,21 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../shared/context/auth-context";
-import { useHttpClient } from "../../shared/hooks/http-hook";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Modal from "../../shared/components/UIElements/Modal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./CourseItem.css";
 
 const CourseItem = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const auth = useContext(AuthContext);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
 
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
@@ -24,13 +28,8 @@ const CourseItem = (props) => {
         `http://localhost:5000/api/courses/${props.id}`,
         "DELETE"
       );
-    } catch (err) {
-      console.log("CourseItem confirmDeleteHandler err: ", err);
-    }
-  };
-
-  const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
+      props.onDelete(props.id);
+    } catch (err) {}
   };
 
   return (
