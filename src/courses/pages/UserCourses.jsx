@@ -8,6 +8,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 const UserCourses = () => {
   const [loadedCourses, setLoadedCourses] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const userId = useParams().userId;
 
   useEffect(() => {
@@ -17,9 +18,7 @@ const UserCourses = () => {
           `http://localhost:5000/api/courses/user/${userId}`
         );
         setLoadedCourses(responseData.courses);
-      } catch (err) {
-        console.log("UserCourses useEffect err: ", err);
-      }
+      } catch (err) {}
     };
     fetchCourses();
   }, [sendRequest, userId]);

@@ -32,7 +32,7 @@ const CourseList = (props) => {
           labs={course.labs}
           passwords={course.passwords}
           users={course.users}
-          onDelete={props.onDeletePlace}
+          onDelete={props.onDeleteCourse}
         />
       ))}
     </ul>

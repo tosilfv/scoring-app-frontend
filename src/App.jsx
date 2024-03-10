@@ -38,6 +38,7 @@ function App() {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
+        <Route exact path="/:userId/courses" element={<UserCourses />} />
         <Route exact path="/auth" element={<Authenticate />} />
         <Route path="*" element={<Authenticate />} />
       </Routes>

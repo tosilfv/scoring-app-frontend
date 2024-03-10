@@ -1,14 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 export const useHttpClient = () => {
-  const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const activeHttpRequests = useRef([]);
-
-  const clearError = () => {
-    setError(null);
-  };
 
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
@@ -18,9 +14,9 @@ export const useHttpClient = () => {
 
       try {
         const response = await fetch(url, {
+          method,
           body,
           headers,
-          method,
           signal: httpAbortCtrl.signal,
         });
 
@@ -47,6 +43,10 @@ export const useHttpClient = () => {
     },
     []
   );
+
+  const clearError = () => {
+    setError(null);
+  };
 
   useEffect(() => {
     return () => {

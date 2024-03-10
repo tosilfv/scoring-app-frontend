@@ -60,6 +60,7 @@ const NewCourse = () => {
   );
 
   const courseSubmitHandler = async (event) => {
+    console.log(auth);
     event.preventDefault();
     try {
       await sendRequest(
@@ -80,9 +81,7 @@ const NewCourse = () => {
         { "Content-Type": "application/json" }
       );
       navigate("/");
-    } catch (err) {
-      console.log("NewCourse courseSubmitHandler err: ", err);
-    }
+    } catch (err) {}
   };
 
   return (
