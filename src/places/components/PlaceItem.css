@@ -1,39 +1,39 @@
-.course-item {
+.place-item {
   margin: 1rem 0;
 }
 
-.course-item__actions {
+.place-item__actions {
   border-top: 1px solid #830000;
   padding: 1rem;
   text-align: center;
 }
 
-.course-item__actions button,
-.course-item__actions a {
+.place-item__actions button,
+.place-item__actions a {
   margin: 0.5rem;
 }
 
-.course-item__content {
+.place-item__content {
   margin-top: 5rem;
   padding: 0;
 }
 
-.course-item__info {
+.place-item__info {
   color: #8ac2d6;
   padding: 1rem;
   text-align: center;
 }
 
-.course-item__info h2,
-.course-item__info h3,
-.course-item__info p {
+.place-item__info h2,
+.place-item__info h3,
+.place-item__info p {
   margin: 0 0 0.5rem 0;
 }
 
-.course-item__modal-actions {
+.place-item__modal-actions {
   text-align: right;
 }
 
-.course-item__modal-content {
+.place-item__modal-content {
   padding: 0;
 }

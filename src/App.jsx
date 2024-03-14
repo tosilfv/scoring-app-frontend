@@ -1,36 +1,29 @@
-import React, { useCallback, useState } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AuthContext } from "./shared/context/auth-context";
-import Authenticate from "./user/pages/Authenticate";
+
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import NewCourse from "./courses/pages/NewCourse";
-import UpdateCourse from "./courses/pages/UpdateCourse";
-import UserCourses from "./courses/pages/UserCourses";
-import Users from "./user/pages/Users";
+import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(false);
+const Users = React.lazy(() => import("./user/pages/Users"));
+const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
+const UserPlaces = React.lazy(() => import("./places/pages/UserPlaces"));
+const UpdatePlace = React.lazy(() => import("./places/pages/UpdatePlace"));
+const Auth = React.lazy(() => import("./user/pages/Auth"));
 
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
-    setUserId(uid);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
+const App = () => {
+  const { token, login, logout, userId } = useAuth();
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
-        <Route exact path="/:userId/courses" element={<UserCourses />} />
-        <Route exact path="/courses/new" element={<NewCourse />} />
-        <Route exact path="/courses/:courseId" element={<UpdateCourse />} />
+        <Route exact path="/:userId/places" element={<UserPlaces />} />
+        <Route exact path="/places/new" element={<NewPlace />} />
+        <Route exact path="/places/:placeId" element={<UpdatePlace />} />
         <Route path="*" element={<Users />} />
       </Routes>
     );
@@ -38,9 +31,9 @@ function App() {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
-        <Route exact path="/:userId/courses" element={<UserCourses />} />
-        <Route exact path="/auth" element={<Authenticate />} />
-        <Route path="*" element={<Authenticate />} />
+        <Route exact path="/:userId/places" element={<UserPlaces />} />
+        <Route exact path="/auth" element={<Auth />} />
+        <Route path="*" element={<Auth />} />
       </Routes>
     );
   }
@@ -48,7 +41,8 @@ function App() {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
+        token: token,
         userId: userId,
         login: login,
         logout: logout,
@@ -56,10 +50,20 @@ function App() {
     >
       <Router>
         <MainNavigation />
-        <main>{routes}</main>
+        <main>
+          <Suspense
+            fallback={
+              <div className="center">
+                <LoadingSpinner />
+              </div>
+            }
+          >
+            {routes}
+          </Suspense>
+        </main>
       </Router>
     </AuthContext.Provider>
   );
-}
+};
 
 export default App;

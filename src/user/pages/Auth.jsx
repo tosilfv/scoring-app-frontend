@@ -1,20 +1,21 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../shared/context/auth-context";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useForm } from "../../shared/hooks/form-hook";
+import React, { useState, useContext } from "react";
+
+import Card from "../../shared/components/UIElements/Card";
+import Input from "../../shared/components/FormElements/Input";
+import Button from "../../shared/components/FormElements/Button";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
-import Button from "../../shared/components/FormElements/Button";
-import Card from "../../shared/components/UIElements/Card";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import Input from "../../shared/components/FormElements/Input";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import "./Authenticate.css";
+import { useForm } from "../../shared/hooks/form-hook";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { AuthContext } from "../../shared/context/auth-context";
+import "./Auth.css";
 
-const Authenticate = () => {
+const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -63,7 +64,7 @@ const Authenticate = () => {
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users/login",
+          process.env.VITE_BACKEND_URL + "/users/login",
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -73,24 +74,24 @@ const Authenticate = () => {
             "Content-Type": "application/json",
           }
         );
-        auth.login(responseData.user.id);
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     } else {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users/register",
+          process.env.VITE_BACKEND_URL + "/users/signup",
           "POST",
           JSON.stringify({
-            name: formState.inputs.name.value,
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
+            name: formState.inputs.name.value,
           }),
           {
             "Content-Type": "application/json",
           }
         );
 
-        auth.login(responseData.user.id);
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     }
   };
@@ -144,4 +145,4 @@ const Authenticate = () => {
   );
 };
 
-export default Authenticate;
+export default Auth;

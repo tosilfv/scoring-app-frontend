@@ -1,6 +1,7 @@
 import React from "react";
-import Card from "../../shared/components/UIElements/Card";
+
 import UserItem from "./UserItem";
+import Card from "../../shared/components/UIElements/Card";
 import "./UsersList.css";
 
 const UsersList = (props) => {
@@ -20,8 +21,9 @@ const UsersList = (props) => {
         <UserItem
           key={user.id}
           id={user.id}
-          courseCount={user.courses.length}
+          image={user.image}
           name={user.name}
+          placeCount={user.places.length}
         />
       ))}
     </ul>

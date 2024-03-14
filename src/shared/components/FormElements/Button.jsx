@@ -19,11 +19,11 @@ const Button = (props) => {
   if (props.to) {
     return (
       <Link
+        to={props.to}
+        exact={props.exact}
         className={`button button--${props.size || "default"} ${
           props.inverse && "button--inverse"
         } ${props.danger && "button--danger"}`}
-        exact={props.exact}
-        to={props.to}
       >
         {props.children}
       </Link>
@@ -34,9 +34,9 @@ const Button = (props) => {
       className={`button button--${props.size || "default"} ${
         props.inverse && "button--inverse"
       } ${props.danger && "button--danger"}`}
-      disabled={props.disabled}
-      onClick={props.onClick}
       type={props.type}
+      onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </button>
