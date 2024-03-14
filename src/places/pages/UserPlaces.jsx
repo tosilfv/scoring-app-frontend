@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import CourseList from "../components/CourseList";
+
+import PlaceList from "../components/PlaceList";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
-const UserCourses = () => {
-  const [loadedCourses, setLoadedCourses] = useState();
+const UserPlaces = () => {
+  const [loadedPlaces, setLoadedPlaces] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const userId = useParams().userId;
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchPlaces = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/courses/user/${userId}`
+          process.env.VITE_BACKEND_URL + `/places/user/${userId}`
         );
-        setLoadedCourses(responseData.courses);
+        setLoadedPlaces(responseData.places);
       } catch (err) {}
     };
-    fetchCourses();
+    fetchPlaces();
   }, [sendRequest, userId]);
 
-  const courseDeletedHandler = (deletedCourseId) => {
-    setLoadedCourses((prevCourses) =>
-      prevCourses.filter((course) => course.id !== deletedCourseId)
+  const placeDeletedHandler = (deletedPlaceId) => {
+    setLoadedPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== deletedPlaceId)
     );
   };
 
@@ -37,14 +38,11 @@ const UserCourses = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedCourses && (
-        <CourseList
-          items={loadedCourses}
-          onDeleteCourse={courseDeletedHandler}
-        />
+      {!isLoading && loadedPlaces && (
+        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
       )}
     </React.Fragment>
   );
 };
 
-export default UserCourses;
+export default UserPlaces;

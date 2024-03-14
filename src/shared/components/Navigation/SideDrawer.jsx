@@ -1,18 +1,19 @@
 import React, { useRef } from "react";
-import { createPortal } from "react-dom";
+import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import { style } from "../../styles/styles";
+
 import "./SideDrawer.css";
 
 const SideDrawer = (props) => {
   const nodeRef = useRef(null); // silence "CSSTransition using findDOMNode" warning
   const content = (
     <CSSTransition
-      classNames="slide-in-left"
       in={props.show}
+      timeout={200}
+      classNames="slide-in-left"
       mountOnEnter
       nodeRef={nodeRef}
-      timeout={200}
       unmountOnExit
     >
       <aside
@@ -26,7 +27,7 @@ const SideDrawer = (props) => {
     </CSSTransition>
   );
 
-  return createPortal(content, document.getElementById("drawer-hook"));
+  return ReactDOM.createPortal(content, document.getElementById("drawer-hook"));
 };
 
 export default SideDrawer;

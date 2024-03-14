@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
-import Backdrop from "../UIElements/Backdrop";
+
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
+import Backdrop from "../UIElements/Backdrop";
 import "./MainNavigation.css";
 
 const MainNavigation = (props) => {
   const auth = useContext(AuthContext);
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
-  const closeDrawerHandler = () => {
-    setDrawerIsOpen(false);
-  };
-
   const openDrawerHandler = () => {
     setDrawerIsOpen(true);
+  };
+
+  const closeDrawerHandler = () => {
+    setDrawerIsOpen(false);
   };
 
   let scoringHeader;

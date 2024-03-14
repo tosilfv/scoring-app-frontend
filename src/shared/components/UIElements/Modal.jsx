@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
+
 import Backdrop from "./Backdrop";
 import "./Modal.css";
 
@@ -33,12 +34,12 @@ const Modal = (props) => {
     <React.Fragment>
       {props.show && <Backdrop onClick={props.onCancel} />}
       <CSSTransition
-        classNames="modal"
         in={props.show}
         mountOnEnter
         nodeRef={nodeRef}
-        timeout={200}
         unmountOnExit
+        timeout={200}
+        classNames="modal"
       >
         <ModalOverlay {...props} />
       </CSSTransition>
