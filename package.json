@@ -1,11 +1,12 @@
 {
   "name": "scoring-app-fontend",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.4.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "copy": "cp -r dist ../mern5b/",
     "serve": "vite serve",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
