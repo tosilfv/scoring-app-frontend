@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import ReactDOM from "react-dom";
-import { CSSTransition } from "react-transition-group";
+import React, { useRef } from 'react'
+import ReactDOM from 'react-dom'
+import { CSSTransition } from 'react-transition-group'
 
-import Backdrop from "./Backdrop";
-import "./Modal.css";
+import Backdrop from './Backdrop'
+import './Modal.css'
 
 const ModalOverlay = (props) => {
   const content = (
@@ -24,12 +24,12 @@ const ModalOverlay = (props) => {
         </footer>
       </form>
     </div>
-  );
-  return ReactDOM.createPortal(content, document.getElementById("modal-hook"));
-};
+  )
+  return ReactDOM.createPortal(content, document.getElementById('modal-hook'))
+}
 
 const Modal = (props) => {
-  const nodeRef = useRef(null); // silence "CSSTransition using findDOMNode" warning
+  const nodeRef = useRef(null) // silence "CSSTransition using findDOMNode" warning
   return (
     <React.Fragment>
       {props.show && <Backdrop onClick={props.onCancel} />}
@@ -44,7 +44,7 @@ const Modal = (props) => {
         <ModalOverlay {...props} />
       </CSSTransition>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

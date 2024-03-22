@@ -1,31 +1,31 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/auth-context";
+import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/auth-context'
 
-import MainHeader from "./MainHeader";
-import NavLinks from "./NavLinks";
-import SideDrawer from "./SideDrawer";
-import Backdrop from "../UIElements/Backdrop";
-import "./MainNavigation.css";
+import MainHeader from './MainHeader'
+import NavLinks from './NavLinks'
+import SideDrawer from './SideDrawer'
+import Backdrop from '../UIElements/Backdrop'
+import './MainNavigation.css'
 
 const MainNavigation = (props) => {
-  const auth = useContext(AuthContext);
-  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const auth = useContext(AuthContext)
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false)
 
   const openDrawerHandler = () => {
-    setDrawerIsOpen(true);
-  };
+    setDrawerIsOpen(true)
+  }
 
   const closeDrawerHandler = () => {
-    setDrawerIsOpen(false);
-  };
+    setDrawerIsOpen(false)
+  }
 
-  let scoringHeader;
+  let scoringHeader
 
   if (auth.isLoggedIn) {
-    scoringHeader = "Dashboard";
+    scoringHeader = 'Dashboard'
   } else {
-    scoringHeader = "Scoring App";
+    scoringHeader = 'Scoring App'
   }
 
   return (
@@ -54,7 +54,7 @@ const MainNavigation = (props) => {
         </nav>
       </MainHeader>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default MainNavigation;
+export default MainNavigation
