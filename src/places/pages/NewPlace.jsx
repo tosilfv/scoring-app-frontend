@@ -1,60 +1,62 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import Input from "../../shared/components/FormElements/Input";
-import Button from "../../shared/components/FormElements/Button";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import Input from '../../shared/components/FormElements/Input'
+import Button from '../../shared/components/FormElements/Button'
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
-} from "../../shared/util/validators";
-import { useForm } from "../../shared/hooks/form-hook";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import { AuthContext } from "../../shared/context/auth-context";
-import "./PlaceForm.css";
+} from '../../shared/util/validators'
+import { useForm } from '../../shared/hooks/form-hook'
+import { useHttpClient } from '../../shared/hooks/http-hook'
+import { AuthContext } from '../../shared/context/auth-context'
+import './PlaceForm.css'
 
 const NewPlace = () => {
-  const auth = useContext(AuthContext);
-  const navigate = useNavigate();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useContext(AuthContext)
+  const navigate = useNavigate()
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
   const [formState, inputHandler] = useForm(
     {
       title: {
-        value: "",
+        value: '',
         isValid: false,
       },
       description: {
-        value: "",
+        value: '',
         isValid: false,
       },
       address: {
-        value: "",
+        value: '',
         isValid: false,
       },
     },
     false
-  );
+  )
 
   const placeSubmitHandler = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       await sendRequest(
-        process.env.VITE_BACKEND_URL + "/places",
-        "POST",
+        process.env.VITE_BACKEND_URL + '/places',
+        'POST',
         JSON.stringify({
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
           address: formState.inputs.address.value,
         }),
         {
-          Authorization: "Bearer " + auth.token,
-          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + auth.token,
+          'Content-Type': 'application/json',
         }
-      );
-      navigate("/");
-    } catch (err) {}
-  };
+      )
+      navigate('/')
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
 
   return (
     <React.Fragment>
@@ -63,6 +65,7 @@ const NewPlace = () => {
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
+          placeholder="title"
           element="input"
           type="text"
           label="Title"
@@ -72,6 +75,7 @@ const NewPlace = () => {
         />
         <Input
           id="description"
+          placeholder="description"
           element="textarea"
           label="Description"
           validators={[VALIDATOR_MINLENGTH(5)]}
@@ -80,6 +84,7 @@ const NewPlace = () => {
         />
         <Input
           id="address"
+          placeholder="address"
           element="input"
           label="Address"
           validators={[VALIDATOR_REQUIRE()]}
@@ -91,7 +96,7 @@ const NewPlace = () => {
         </Button>
       </form>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default NewPlace;
+export default NewPlace

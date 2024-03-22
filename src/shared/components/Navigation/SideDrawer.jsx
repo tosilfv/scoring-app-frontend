@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
-import ReactDOM from "react-dom";
-import { CSSTransition } from "react-transition-group";
-import { style } from "../../styles/styles";
+import React, { useRef } from 'react'
+import ReactDOM from 'react-dom'
+import { CSSTransition } from 'react-transition-group'
+import { style } from '../../styles/styles'
 
-import "./SideDrawer.css";
+import './SideDrawer.css'
 
 const SideDrawer = (props) => {
-  const nodeRef = useRef(null); // silence "CSSTransition using findDOMNode" warning
+  const nodeRef = useRef(null) // silence "CSSTransition using findDOMNode" warning
   const content = (
     <CSSTransition
       in={props.show}
@@ -25,9 +25,9 @@ const SideDrawer = (props) => {
         {props.children}
       </aside>
     </CSSTransition>
-  );
+  )
 
-  return ReactDOM.createPortal(content, document.getElementById("drawer-hook"));
-};
+  return ReactDOM.createPortal(content, document.getElementById('drawer-hook'))
+}
 
-export default SideDrawer;
+export default SideDrawer

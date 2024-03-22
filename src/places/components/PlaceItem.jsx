@@ -1,41 +1,43 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react'
 
-import Card from "../../shared/components/UIElements/Card";
-import Button from "../../shared/components/FormElements/Button";
-import Modal from "../../shared/components/UIElements/Modal";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import { AuthContext } from "../../shared/context/auth-context";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import "./PlaceItem.css";
+import Card from '../../shared/components/UIElements/Card'
+import Button from '../../shared/components/FormElements/Button'
+import Modal from '../../shared/components/UIElements/Modal'
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import { AuthContext } from '../../shared/context/auth-context'
+import { useHttpClient } from '../../shared/hooks/http-hook'
+import './PlaceItem.css'
 
 const PlaceItem = (props) => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const auth = useContext(AuthContext);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const auth = useContext(AuthContext)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
-  };
+    setShowConfirmModal(true)
+  }
 
   const cancelDeleteHandler = () => {
-    setShowConfirmModal(false);
-  };
+    setShowConfirmModal(false)
+  }
 
   const confirmDeleteHandler = async () => {
-    setShowConfirmModal(false);
+    setShowConfirmModal(false)
     try {
       await sendRequest(
         process.env.VITE_BACKEND_URL + `/places/${props.id}`,
-        "DELETE",
+        'DELETE',
         null,
         {
-          Authorization: "Bearer " + auth.token,
+          Authorization: 'Bearer ' + auth.token,
         }
-      );
-      props.onDelete(props.id);
-    } catch (err) {}
-  };
+      )
+      props.onDelete(props.id)
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
 
   return (
     <React.Fragment>
@@ -58,7 +60,7 @@ const PlaceItem = (props) => {
       >
         <p>
           Do you want to proceed and delete this place? Please note that it
-          can't be undone thereafter.
+          can`&apos`t be undone thereafter.
         </p>
       </Modal>
       <li className="place-item">
@@ -83,7 +85,7 @@ const PlaceItem = (props) => {
         </Card>
       </li>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default PlaceItem;
+export default PlaceItem
