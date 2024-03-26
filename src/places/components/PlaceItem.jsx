@@ -53,14 +53,14 @@ const PlaceItem = (props) => {
               CANCEL
             </Button>
             <Button danger onClick={confirmDeleteHandler}>
-              DELETE
+              OK
             </Button>
           </React.Fragment>
         }
       >
         <p>
           Do you want to proceed and delete this place? Please note that it
-          can`&apos`t be undone thereafter.
+          can`t be undone thereafter.
         </p>
       </Modal>
       <li className="place-item">
