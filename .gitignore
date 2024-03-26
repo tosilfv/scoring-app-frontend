@@ -2,12 +2,11 @@
 .env.production
 cypress/videos/
 cypress/screenshots/
-dist/
 .firebase
 .github
-/test-results
-playwright-report
-coverage
+coverage/
+playwright-report/
+test-results/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
