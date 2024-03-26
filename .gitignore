@@ -3,9 +3,7 @@
 cypress/videos/
 cypress/screenshots/
 dist/
-.firebaserc
 .firebase
-firebase.json
 .github
 /test-results
 playwright-report
