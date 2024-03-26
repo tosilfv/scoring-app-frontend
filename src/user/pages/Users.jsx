@@ -15,10 +15,9 @@ const Users = () => {
         const responseData = await sendRequest(
           process.env.VITE_BACKEND_URL + '/users'
         )
-
         setLoadedUsers(responseData.users)
       } catch (err) {
-        console.log('err: ', err)
+        console.log('err Users: ', err)
       }
     }
     fetchUsers()

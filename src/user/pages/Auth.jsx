@@ -62,7 +62,6 @@ const Auth = () => {
     event.preventDefault()
 
     if (isLoginMode) {
-      console.log('formState: ', formState)
       try {
         const responseData = await sendRequest(
           process.env.VITE_BACKEND_URL + '/users/login',
@@ -77,7 +76,7 @@ const Auth = () => {
         )
         auth.login(responseData.userId, responseData.token)
       } catch (err) {
-        console.log('err: ', err)
+        console.log('err authSubmitHandler isLoginMode: ', err)
       }
     } else {
       try {
@@ -93,10 +92,11 @@ const Auth = () => {
             'Content-Type': 'application/json',
           }
         )
+        console.log('responseData2: ', responseData)
 
         auth.login(responseData.userId, responseData.token)
       } catch (err) {
-        console.log('err: ', err)
+        console.log('err authSubmitHandler !isLoginMode: ', err)
       }
     }
   }
@@ -138,11 +138,11 @@ const Auth = () => {
             errorText="Please enter a valid password, at least 5 characters."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid}>
+          <Button type="submit" name="login" disabled={!formState.isValid}>
             {isLoginMode ? 'LOGIN' : 'SIGNUP'}
           </Button>
         </form>
-        <Button inverse onClick={switchModeHandler}>
+        <Button inverse name="signup" onClick={switchModeHandler}>
           SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
         </Button>
       </Card>
