@@ -7,9 +7,9 @@ import { useAuth } from './shared/hooks/auth-hook'
 import LoadingSpinner from './shared/components/UIElements/LoadingSpinner'
 
 const Users = React.lazy(() => import('./user/pages/Users'))
-const NewPlace = React.lazy(() => import('./places/pages/NewPlace'))
-const UserPlaces = React.lazy(() => import('./places/pages/UserPlaces'))
-const UpdatePlace = React.lazy(() => import('./places/pages/UpdatePlace'))
+const NewCourse = React.lazy(() => import('./courses/pages/NewCourse'))
+const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))
+const UpdateCourse = React.lazy(() => import('./courses/pages/UpdateCourse'))
 const Auth = React.lazy(() => import('./user/pages/Auth'))
 
 const App = () => {
@@ -21,9 +21,9 @@ const App = () => {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
-        <Route exact path="/:userId/places" element={<UserPlaces />} />
-        <Route exact path="/places/new" element={<NewPlace />} />
-        <Route exact path="/places/:placeId" element={<UpdatePlace />} />
+        <Route exact path="/:userId/courses" element={<UserCourses />} />
+        <Route exact path="/courses/new" element={<NewCourse />} />
+        <Route exact path="/courses/:courseId" element={<UpdateCourse />} />
         <Route path="*" element={<Users />} />
       </Routes>
     )
@@ -31,7 +31,7 @@ const App = () => {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
-        <Route exact path="/:userId/places" element={<UserPlaces />} />
+        <Route exact path="/:userId/courses" element={<UserCourses />} />
         <Route exact path="/auth" element={<Auth />} />
         <Route path="*" element={<Auth />} />
       </Routes>

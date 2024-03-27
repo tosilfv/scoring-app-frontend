@@ -13,13 +13,13 @@ import {
 import { useForm } from '../../shared/hooks/form-hook'
 import { useHttpClient } from '../../shared/hooks/http-hook'
 import { AuthContext } from '../../shared/context/auth-context'
-import './PlaceForm.css'
+import './CourseForm.css'
 
-const UpdatePlace = () => {
+const UpdateCourse = () => {
   const auth = useContext(AuthContext)
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
-  const [loadedPlace, setLoadedPlace] = useState()
-  const placeId = useParams().placeId
+  const [loadedCourse, setLoadedCourse] = useState()
+  const courseId = useParams().courseId
   const navigate = useNavigate()
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -37,20 +37,20 @@ const UpdatePlace = () => {
   )
 
   useEffect(() => {
-    const fetchPlace = async () => {
+    const fetchCourse = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.VITE_BACKEND_URL + `/places/${placeId}`
+          process.env.VITE_BACKEND_URL + `/courses/${courseId}`
         )
-        setLoadedPlace(responseData.place)
+        setLoadedCourse(responseData.course)
         setFormData(
           {
             title: {
-              value: responseData.place.title,
+              value: responseData.course.title,
               isValid: true,
             },
             description: {
-              value: responseData.place.description,
+              value: responseData.course.description,
               isValid: true,
             },
           },
@@ -60,14 +60,14 @@ const UpdatePlace = () => {
         console.log('err: ', err)
       }
     }
-    fetchPlace()
-  }, [sendRequest, placeId, setFormData])
+    fetchCourse()
+  }, [sendRequest, courseId, setFormData])
 
-  const placeUpdateSubmitHandler = async (event) => {
+  const courseUpdateSubmitHandler = async (event) => {
     event.preventDefault()
     try {
       await sendRequest(
-        process.env.VITE_BACKEND_URL + `/places/${placeId}`,
+        process.env.VITE_BACKEND_URL + `/courses/${courseId}`,
         'PATCH',
         JSON.stringify({
           title: formState.inputs.title.value,
@@ -78,7 +78,7 @@ const UpdatePlace = () => {
           Authorization: 'Bearer ' + auth.token,
         }
       )
-      navigate('/' + auth.userId + '/places')
+      navigate('/' + auth.userId + '/courses')
     } catch (err) {
       console.log('err: ', err)
     }
@@ -92,11 +92,11 @@ const UpdatePlace = () => {
     )
   }
 
-  if (!loadedPlace && !error) {
+  if (!loadedCourse && !error) {
     return (
       <div className="center">
         <Card>
-          <h2>Could not find place!</h2>
+          <h2>Could not find course!</h2>
         </Card>
       </div>
     )
@@ -105,8 +105,8 @@ const UpdatePlace = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      {!isLoading && loadedPlace && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+      {!isLoading && loadedCourse && (
+        <form className="course-form" onSubmit={courseUpdateSubmitHandler}>
           <Input
             id="title"
             element="input"
@@ -115,7 +115,7 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
             onInput={inputHandler}
-            initialValue={loadedPlace.title}
+            initialValue={loadedCourse.title}
             initialValid={true}
           />
           <Input
@@ -125,11 +125,11 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min. 5 characters)."
             onInput={inputHandler}
-            initialValue={loadedPlace.description}
+            initialValue={loadedCourse.description}
             initialValid={true}
           />
           <Button type="submit" disabled={!formState.isValid}>
-            UPDATE PLACE
+            UPDATE COURSE
           </Button>
         </form>
       )}
@@ -137,4 +137,4 @@ const UpdatePlace = () => {
   )
 }
 
-export default UpdatePlace
+export default UpdateCourse

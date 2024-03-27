@@ -12,9 +12,9 @@ import {
 import { useForm } from '../../shared/hooks/form-hook'
 import { useHttpClient } from '../../shared/hooks/http-hook'
 import { AuthContext } from '../../shared/context/auth-context'
-import './PlaceForm.css'
+import './CourseForm.css'
 
-const NewPlace = () => {
+const NewCourse = () => {
   const auth = useContext(AuthContext)
   const navigate = useNavigate()
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
@@ -36,11 +36,11 @@ const NewPlace = () => {
     false
   )
 
-  const placeSubmitHandler = async (event) => {
+  const courseSubmitHandler = async (event) => {
     event.preventDefault()
     try {
       await sendRequest(
-        process.env.VITE_BACKEND_URL + '/places',
+        process.env.VITE_BACKEND_URL + '/courses',
         'POST',
         JSON.stringify({
           title: formState.inputs.title.value,
@@ -61,7 +61,7 @@ const NewPlace = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <form className="place-form" onSubmit={placeSubmitHandler}>
+      <form className="course-form" onSubmit={courseSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
@@ -92,11 +92,11 @@ const NewPlace = () => {
           onInput={inputHandler}
         />
         <Button type="submit" disabled={!formState.isValid}>
-          ADD PLACE
+          ADD COURSE
         </Button>
       </form>
     </React.Fragment>
   )
 }
 
-export default NewPlace
+export default NewCourse
