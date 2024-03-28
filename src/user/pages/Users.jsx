@@ -11,14 +11,15 @@ const Users = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      let responseData
       try {
-        const responseData = await sendRequest(
+        responseData = await sendRequest(
           process.env.VITE_BACKEND_URL + '/users'
         )
-        setLoadedUsers(responseData.users)
       } catch (err) {
         console.log('err Users: ', err)
       }
+      responseData && setLoadedUsers(responseData.users)
     }
     fetchUsers()
   }, [sendRequest])
