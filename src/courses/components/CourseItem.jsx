@@ -1,12 +1,11 @@
-import React, { useState, useContext } from 'react'
-
-import Card from '../../shared/components/UIElements/Card'
-import Button from '../../shared/components/FormElements/Button'
-import Modal from '../../shared/components/UIElements/Modal'
-import ErrorModal from '../../shared/components/UIElements/ErrorModal'
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../shared/context/auth-context'
 import { useHttpClient } from '../../shared/hooks/http-hook'
+import Button from '../../shared/components/FormElements/Button'
+import Card from '../../shared/components/UIElements/Card'
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import Modal from '../../shared/components/UIElements/Modal'
 import './CourseItem.css'
 
 const CourseItem = (props) => {
@@ -58,10 +57,7 @@ const CourseItem = (props) => {
           </React.Fragment>
         }
       >
-        <p>
-          Do you want to proceed and delete this course? Please note that it
-          can`t be undone thereafter.
-        </p>
+        <p>Do you want to delete this course? This action cannot be undone.</p>
       </Modal>
       <li className="course-item">
         <Card className="course-item__content">

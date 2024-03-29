@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-
-import Input from '../../shared/components/FormElements/Input'
-import Button from '../../shared/components/FormElements/Button'
-import Card from '../../shared/components/UIElements/Card'
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
-import ErrorModal from '../../shared/components/UIElements/ErrorModal'
-import {
-  VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH,
-} from '../../shared/util/validators'
+import { AuthContext } from '../../shared/context/auth-context'
 import { useForm } from '../../shared/hooks/form-hook'
 import { useHttpClient } from '../../shared/hooks/http-hook'
-import { AuthContext } from '../../shared/context/auth-context'
+import Button from '../../shared/components/FormElements/Button'
+import Card from '../../shared/components/UIElements/Card'
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import Input from '../../shared/components/FormElements/Input'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from '../../shared/util/validators'
 import './CourseForm.css'
 
 const UpdateCourse = () => {

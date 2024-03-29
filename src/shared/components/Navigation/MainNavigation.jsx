@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/auth-context'
-
+import Backdrop from '../UIElements/Backdrop'
 import MainHeader from './MainHeader'
 import NavLinks from './NavLinks'
 import SideDrawer from './SideDrawer'
-import Backdrop from '../UIElements/Backdrop'
 import './MainNavigation.css'
 
 const MainNavigation = (props) => {
@@ -25,7 +24,7 @@ const MainNavigation = (props) => {
   if (auth.isLoggedIn) {
     scoringHeader = 'Dashboard'
   } else {
-    scoringHeader = 'Scoring App'
+    scoringHeader = 'Scoring Server'
   }
 
   return (

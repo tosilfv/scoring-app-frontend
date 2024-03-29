@@ -1,8 +1,7 @@
 import React from 'react'
-
+import Button from '../../shared/components/FormElements/Button'
 import Card from '../../shared/components/UIElements/Card'
 import CourseItem from './CourseItem'
-import Button from '../../shared/components/FormElements/Button'
 import './CourseList.css'
 
 const CourseList = (props) => {
@@ -10,8 +9,8 @@ const CourseList = (props) => {
     return (
       <div className="course-list center">
         <Card>
-          <h2>No courses found. Maybe create one?</h2>
-          <Button to="/courses/new">Share Course</Button>
+          <h2>No courses found.</h2>
+          <Button to="/courses/new">New Course</Button>
         </Card>
       </div>
     )
@@ -23,12 +22,10 @@ const CourseList = (props) => {
         <CourseItem
           key={course.id}
           id={course.id}
-          image={course.image}
           title={course.title}
           description={course.description}
           address={course.address}
           creatorId={course.creator}
-          coordinates={course.location}
           onDelete={props.onDeleteCourse}
         />
       ))}

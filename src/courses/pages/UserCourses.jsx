@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useHttpClient } from '../../shared/hooks/http-hook'
 import { useParams } from 'react-router-dom'
-
 import CourseList from '../components/CourseList'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
-import { useHttpClient } from '../../shared/hooks/http-hook'
 
 const UserCourses = () => {
   const [loadedCourses, setLoadedCourses] = useState()
