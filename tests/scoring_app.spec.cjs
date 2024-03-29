@@ -4,7 +4,7 @@ test('front page can be opened', async ({ page }) => {
   await page.goto('http://127.0.0.1:5173')
   const locator = await page.getByText('authenticate')
   await expect(locator).toBeVisible()
-  await expect(page.getByText('Scoring App')).toBeVisible()
+  await expect(page.getByText('Scoring Server')).toBeVisible()
 })
 
 test('register and login forms can be opened', async ({ page, request }) => {
@@ -52,7 +52,5 @@ test('course can be added, edited and deleted', async ({ page, request }) => {
   await page.getByText('ok').click()
   await page.getByText('my courses').click()
   await expect(page.getByText('aaaaa1')).not.toBeVisible()
-  await expect(
-    page.getByText('No courses found. Maybe create one?')
-  ).toBeVisible()
+  await expect(page.getByText('No courses found.')).toBeVisible()
 })

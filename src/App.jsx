@@ -1,16 +1,15 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
-import MainNavigation from './shared/components/Navigation/MainNavigation'
 import { AuthContext } from './shared/context/auth-context'
 import { useAuth } from './shared/hooks/auth-hook'
 import LoadingSpinner from './shared/components/UIElements/LoadingSpinner'
+import MainNavigation from './shared/components/Navigation/MainNavigation'
 
-const Users = React.lazy(() => import('./user/pages/Users'))
-const NewCourse = React.lazy(() => import('./courses/pages/NewCourse'))
-const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))
-const UpdateCourse = React.lazy(() => import('./courses/pages/UpdateCourse'))
 const Auth = React.lazy(() => import('./user/pages/Auth'))
+const NewCourse = React.lazy(() => import('./courses/pages/NewCourse'))
+const UpdateCourse = React.lazy(() => import('./courses/pages/UpdateCourse'))
+const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))
+const Users = React.lazy(() => import('./user/pages/Users'))
 
 const App = () => {
   const { token, login, logout, userId } = useAuth()

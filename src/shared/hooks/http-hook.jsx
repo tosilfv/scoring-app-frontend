@@ -1,8 +1,8 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export const useHttpClient = () => {
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
 
   const activeHttpRequests = useRef([])
 
@@ -14,9 +14,9 @@ export const useHttpClient = () => {
 
       try {
         const response = await fetch(url, {
-          method,
           body,
           headers,
+          method,
           signal: httpAbortCtrl.signal,
         })
 

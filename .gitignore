@@ -1,10 +1,10 @@
 .env
 .env.production
-cypress/videos/
-cypress/screenshots/
 .firebase
 .github
 coverage/
+cypress/videos/
+cypress/screenshots/
 playwright-report/
 test-results/
 

@@ -1,8 +1,8 @@
-# Scoring App Frontend
+# Scoring Server Frontend
 
 ## Description
 
-This is the Frontend of the Scoring App.
+This is the Frontend of the Scoring Server.
 
 ## Installing and start up
 
