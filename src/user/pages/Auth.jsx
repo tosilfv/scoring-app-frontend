@@ -125,7 +125,7 @@ const Auth = () => {
             type="email"
             label="E-Mail"
             validators={[VALIDATOR_EMAIL()]}
-            errorText="Please enter a valid email address."
+            errorText="Please enter a valid email."
             onInput={inputHandler}
           />
           <Input

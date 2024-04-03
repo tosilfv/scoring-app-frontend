@@ -24,7 +24,7 @@ const CourseList = (props) => {
           id={course.id}
           title={course.title}
           description={course.description}
-          address={course.address}
+          labs={course.labs}
           creatorId={course.creator}
           onDelete={props.onDeleteCourse}
         />

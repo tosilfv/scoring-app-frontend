@@ -13,14 +13,15 @@ const UserCourses = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
+      let responseData
       try {
-        const responseData = await sendRequest(
+        responseData = await sendRequest(
           process.env.VITE_BACKEND_URL + `/courses/user/${userId}`
         )
-        setLoadedCourses(responseData.courses)
       } catch (err) {
-        console.log('err: ', err)
+        console.log('err UserCourses: ', err)
       }
+      responseData && setLoadedCourses(responseData.courses)
     }
     fetchCourses()
   }, [sendRequest, userId])

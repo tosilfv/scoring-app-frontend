@@ -37,11 +37,16 @@ const UpdateCourse = () => {
 
   useEffect(() => {
     const fetchCourse = async () => {
+      let responseData
       try {
-        const responseData = await sendRequest(
+        responseData = await sendRequest(
           process.env.VITE_BACKEND_URL + `/courses/${courseId}`
         )
-        setLoadedCourse(responseData.course)
+      } catch (err) {
+        console.log('err: ', err)
+      }
+      responseData && setLoadedCourse(responseData.course)
+      responseData &&
         setFormData(
           {
             title: {
@@ -55,9 +60,6 @@ const UpdateCourse = () => {
           },
           true
         )
-      } catch (err) {
-        console.log('err: ', err)
-      }
     }
     fetchCourse()
   }, [sendRequest, courseId, setFormData])
