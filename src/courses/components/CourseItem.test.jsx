@@ -5,15 +5,15 @@ import CourseItem from './CourseItem'
 test('renders content', () => {
   const course = {
     title: 'CourseFront1',
-    address: 'addrfront1',
     description: 'descfront1',
+    labs: [{ name: 'labfront1', password: '123' }],
   }
 
   const { container } = render(
     <CourseItem
       title={course.title}
-      address={course.address}
       description={course.description}
+      labs={course.labs}
     />
   )
   const element = screen.getByText('CourseFront1')

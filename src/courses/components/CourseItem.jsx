@@ -64,8 +64,13 @@ const CourseItem = (props) => {
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="course-item__info">
             <h2>{props.title}</h2>
-            <h3>{props.address}</h3>
-            <p>{props.description}</p>
+            <h3>{props.description}</h3>
+            {props.labs.map((lab) => (
+              <div key={lab._id}>
+                <div>{lab.name}</div>
+                <div>{lab.password}</div>
+              </div>
+            ))}
           </div>
           <div className="course-item__actions">
             {auth.userId === props.creatorId && (
