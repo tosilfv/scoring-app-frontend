@@ -1,3 +1,9 @@
+.course-list-header {
+  color: #717171;
+  display: flex;
+  justify-content: center;
+}
+
 .course-list {
   list-style: none;
   margin: 1.5rem;

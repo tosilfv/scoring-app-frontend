@@ -22,9 +22,9 @@ const MainNavigation = (props) => {
   let scoringHeader
 
   if (auth.isLoggedIn) {
-    scoringHeader = 'Dashboard'
+    scoringHeader = 'DASHBOARD'
   } else {
-    scoringHeader = 'Scoring Server'
+    scoringHeader = 'SCORING SERVER'
   }
 
   return (

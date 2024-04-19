@@ -4,7 +4,7 @@ test('front page can be opened', async ({ page }) => {
   await page.goto('http://127.0.0.1:5173')
   const locator = await page.getByText('authenticate')
   await expect(locator).toBeVisible()
-  await expect(page.getByText('Scoring Server')).toBeVisible()
+  await expect(page.getByText('SCORING SERVER')).toBeVisible()
 })
 
 test('register and login forms can be opened', async ({ page, request }) => {

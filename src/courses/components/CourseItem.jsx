@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../shared/context/auth-context'
 import { useHttpClient } from '../../shared/hooks/http-hook'
 import Button from '../../shared/components/FormElements/Button'
@@ -7,11 +8,13 @@ import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 import Modal from '../../shared/components/UIElements/Modal'
 import './CourseItem.css'
+import { style } from '../../shared/styles/styles'
 
 const CourseItem = (props) => {
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
   const auth = useContext(AuthContext)
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const navigate = useNavigate()
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true)
@@ -36,6 +39,33 @@ const CourseItem = (props) => {
     } catch (err) {
       console.log('err: ', err)
     }
+  }
+
+  const labSubmitHandler = async (event, courseId, labId) => {
+    event.preventDefault()
+    let result
+    try {
+      result = await sendRequest(
+        process.env.VITE_BACKEND_URL + '/labs',
+        'POST',
+        JSON.stringify({
+          courseid: courseId,
+          labid: labId,
+          labpassword: event.target.labInput.value,
+        }),
+        {
+          Authorization: 'Bearer ' + auth.token,
+          'Content-Type': 'application/json',
+        }
+      )
+      navigate('/')
+    } catch (err) {
+      console.log('err labSubmitHandler: ', err)
+    }
+  }
+
+  const changeHandler = (event) => {
+    event.preventDefault()
   }
 
   return (
@@ -63,12 +93,36 @@ const CourseItem = (props) => {
         <Card className="course-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="course-item__info">
-            <h2>{props.title}</h2>
-            <h3>{props.description}</h3>
+            <h2 style={style.main}>COURSE</h2>
+            {props.title}
+            <div style={style.yourcourses}>
+              <h3 style={style.main}>DESCRIPTION</h3>
+              {props.description}
+            </div>
             {props.labs.map((lab) => (
               <div key={lab._id}>
-                <div>{lab.name}</div>
-                <div>{lab.password}</div>
+                <form
+                  onSubmit={(event) =>
+                    labSubmitHandler(event, props.id, lab._id)
+                  }
+                >
+                  <span style={style.labsubmit}>LAB</span>
+                  <span style={style.labsubmit}>{lab.name}</span>
+                  {lab.isCompleted ? (
+                    <span>{'< COMPLETED >'}</span>
+                  ) : (
+                    <>
+                      <input
+                        style={style.labsubmit}
+                        onChange={changeHandler}
+                        placeholder="enter lab password"
+                        type="text"
+                        name="labInput"
+                      />
+                      <Button type="submit">SUBMIT</Button>
+                    </>
+                  )}
+                </form>
               </div>
             ))}
           </div>

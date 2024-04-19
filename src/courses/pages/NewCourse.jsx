@@ -84,6 +84,17 @@ const NewCourse = () => {
     setNumArr(newArr)
   }
 
+  const removeLabHandler = async (event) => {
+    event.preventDefault()
+    if (numArr.length > 1) {
+      const newNum = num - 1
+      setNum(newNum)
+      const newArr = numArr.slice(0, -1)
+      setNumArr(newArr)
+      formState.isValid = true // (1) force form validity after lab removal so that form submit button becomes enabled
+    }
+  }
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -111,7 +122,7 @@ const NewCourse = () => {
         {Array.from(numArr).map((lab) => {
           return (
             <React.Fragment key={lab}>
-              <div style={style.main}>Lab{lab}</div>
+              <div style={style.main}>LAB{lab}</div>
               <Input
                 id={`labname${lab}`}
                 placeholder="lab name"
@@ -135,7 +146,7 @@ const NewCourse = () => {
         })}
         <div style={style.button}>
           <Button onClick={addLabHandler}>+ ADD NEW LAB</Button>
-          <Button>- REMOVE NEW LAB</Button>
+          <Button onClick={removeLabHandler}>- REMOVE NEW LAB</Button>
         </div>
         <Button type="submit" disabled={!formState.isValid}>
           ADD COURSE
