@@ -26,4 +26,4 @@ This project is under construction.
 
 ## Known errors
 
-(1) If new labs are added and then removed, the "add courses" page's "add course" button will not be disabled even when all input fields are empty.
+(1) If new labs are added and then removed, the "add courses" page's "add course" button will not be disabled even after all input fields are emptied.

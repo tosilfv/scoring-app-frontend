@@ -73,7 +73,12 @@ const Auth = () => {
             'Content-Type': 'application/json',
           }
         )
-        auth.login(responseData.userId, responseData.token)
+        console.log('responseData1: ', responseData)
+        auth.login(
+          responseData.userId,
+          responseData.token,
+          responseData.isAdmin
+        )
       } catch (err) {
         console.log('err authSubmitHandler isLoginMode: ', err)
       }
@@ -92,8 +97,11 @@ const Auth = () => {
           }
         )
         console.log('responseData2: ', responseData)
-
-        auth.login(responseData.userId, responseData.token)
+        auth.login(
+          responseData.userId,
+          responseData.token,
+          responseData.isAdmin
+        )
       } catch (err) {
         console.log('err authSubmitHandler !isLoginMode: ', err)
       }
