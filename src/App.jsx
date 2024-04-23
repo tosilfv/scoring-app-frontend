@@ -12,7 +12,7 @@ const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))
 const Users = React.lazy(() => import('./user/pages/Users'))
 
 const App = () => {
-  const { token, login, logout, userId } = useAuth()
+  const { token, login, logout, userId, isAdmin } = useAuth()
 
   let routes
 
@@ -40,6 +40,7 @@ const App = () => {
   return (
     <AuthContext.Provider
       value={{
+        isAdmin: isAdmin,
         isLoggedIn: !!token,
         token: token,
         userId: userId,
