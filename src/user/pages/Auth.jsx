@@ -13,11 +13,13 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/util/validators'
 import './Auth.css'
+import { useNavigate } from 'react-router-dom'
 
 const Auth = () => {
   const auth = useContext(AuthContext)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const navigate = useNavigate()
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -73,12 +75,13 @@ const Auth = () => {
             'Content-Type': 'application/json',
           }
         )
-        console.log('responseData1: ', responseData)
         auth.login(
           responseData.userId,
           responseData.token,
-          responseData.isAdmin
+          responseData.isAdmin,
+          responseData.userName
         )
+        navigate(`/profile`)
       } catch (err) {
         console.log('err authSubmitHandler isLoginMode: ', err)
       }
@@ -96,7 +99,6 @@ const Auth = () => {
             'Content-Type': 'application/json',
           }
         )
-        console.log('responseData2: ', responseData)
         auth.login(
           responseData.userId,
           responseData.token,

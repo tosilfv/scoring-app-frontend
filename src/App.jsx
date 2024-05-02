@@ -6,13 +6,15 @@ import LoadingSpinner from './shared/components/UIElements/LoadingSpinner'
 import MainNavigation from './shared/components/Navigation/MainNavigation'
 
 const Auth = React.lazy(() => import('./user/pages/Auth'))
+const AllCourses = React.lazy(() => import('./courses/pages/AllCourses'))
 const NewCourse = React.lazy(() => import('./courses/pages/NewCourse'))
 const UpdateCourse = React.lazy(() => import('./courses/pages/UpdateCourse'))
 const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))
 const Users = React.lazy(() => import('./user/pages/Users'))
+const Profile = React.lazy(() => import('./user/pages/Profile'))
 
 const App = () => {
-  const { token, login, logout, userId, isAdmin } = useAuth()
+  const { token, login, logout, userId, isAdmin, userName } = useAuth()
 
   let routes
 
@@ -20,17 +22,18 @@ const App = () => {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
+        <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/:userId/courses" element={<UserCourses />} />
+        <Route exact path="/courses/all" element={<AllCourses />} />
         <Route exact path="/courses/new" element={<NewCourse />} />
         <Route exact path="/courses/:courseId" element={<UpdateCourse />} />
-        <Route path="*" element={<Users />} />
+        <Route path="*" element={<AllCourses />} />
       </Routes>
     )
   } else {
     routes = (
       <Routes>
         <Route exact path="/" element={<Users />} />
-        <Route exact path="/:userId/courses" element={<UserCourses />} />
         <Route exact path="/auth" element={<Auth />} />
         <Route path="*" element={<Auth />} />
       </Routes>
@@ -44,6 +47,7 @@ const App = () => {
         isLoggedIn: !!token,
         token: token,
         userId: userId,
+        userName: userName,
         login: login,
         logout: logout,
       }}

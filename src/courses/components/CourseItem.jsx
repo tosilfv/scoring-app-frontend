@@ -7,8 +7,8 @@ import Card from '../../shared/components/UIElements/Card'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 import Modal from '../../shared/components/UIElements/Modal'
-import './CourseItem.css'
 import { style } from '../../shared/styles/styles'
+import './CourseItem.css'
 
 const CourseItem = (props) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -58,9 +58,30 @@ const CourseItem = (props) => {
           'Content-Type': 'application/json',
         }
       )
-      navigate('/')
+      navigate('/profile')
     } catch (err) {
       console.log('err labSubmitHandler: ', err)
+    }
+  }
+
+  const joinCourseHandler = async (event) => {
+    event.preventDefault()
+    let result
+    try {
+      result = await sendRequest(
+        process.env.VITE_BACKEND_URL + `/courses/join`,
+        'POST',
+        JSON.stringify({
+          courseid: props.id,
+        }),
+        {
+          Authorization: 'Bearer ' + auth.token,
+          'Content-Type': 'application/json',
+        }
+      )
+      navigate(`/profile`)
+    } catch (err) {
+      console.log('err joinCourseHandler: ', err)
     }
   }
 
@@ -99,32 +120,47 @@ const CourseItem = (props) => {
               <h3 style={style.main}>DESCRIPTION</h3>
               {props.description}
             </div>
-            {props.labs.map((lab) => (
-              <div key={lab._id}>
-                <form
-                  onSubmit={(event) =>
-                    labSubmitHandler(event, props.id, lab._id)
-                  }
-                >
-                  <span style={style.labsubmit}>LAB</span>
-                  <span style={style.labsubmit}>{lab.name}</span>
-                  {lab.isCompleted ? (
-                    <span>{'< COMPLETED >'}</span>
-                  ) : (
-                    <>
-                      <input
-                        style={style.labsubmit}
-                        onChange={changeHandler}
-                        placeholder="enter lab password"
-                        type="text"
-                        name="labInput"
-                      />
-                      <Button type="submit">SUBMIT</Button>
-                    </>
-                  )}
-                </form>
-              </div>
-            ))}
+            {props.labs &&
+              props.labs.map((lab) => (
+                <div key={lab._id}>
+                  <form
+                    onSubmit={(event) =>
+                      labSubmitHandler(event, props.id, lab._id)
+                    }
+                  >
+                    {lab.isCompleted.includes(props.userId) ? (
+                      <>
+                        <span style={style.labcompleted}>LAB</span>
+                        <span style={style.labcompleted}>{lab.name}</span>
+                        <span style={style.labcompleted}>
+                          {'< COMPLETED >'}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span style={style.labsubmit}>LAB</span>
+                        <span style={style.labsubmit}>{lab.name}</span>
+                        {auth.isAdmin ? (
+                          <span style={style.labnotcompleted}>
+                            {'< NOT COMPLETED >'}
+                          </span>
+                        ) : (
+                          <>
+                            <input
+                              style={style.labsubmit}
+                              onChange={changeHandler}
+                              placeholder="enter lab password"
+                              type="text"
+                              name="labInput"
+                            />
+                            <Button type="submit">SUBMIT</Button>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </form>
+                </div>
+              ))}
           </div>
           <div className="course-item__actions">
             {auth.userId === props.creatorId && (
@@ -136,6 +172,10 @@ const CourseItem = (props) => {
                 DELETE
               </Button>
             )}
+            {!(auth.userId === props.creatorId) &&
+              !props.users.includes(auth.userId) && (
+                <Button onClick={joinCourseHandler}>JOIN</Button>
+              )}
           </div>
         </Card>
       </li>
