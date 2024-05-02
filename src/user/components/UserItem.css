@@ -25,7 +25,7 @@
 }
 
 .user-item__image {
-  background-color: #00ff00;
+  background-color: #8ac2d6;
   border-radius: 50px;
   height: 4rem;
   margin-right: 1rem;
@@ -47,5 +47,5 @@
 .user-item:active h2,
 .user-item:hover h3,
 .user-item:active h3 {
-  color: #292929;
+  color: #8ac2d6;
 }

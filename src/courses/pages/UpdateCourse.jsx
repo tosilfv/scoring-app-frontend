@@ -79,7 +79,7 @@ const UpdateCourse = () => {
           Authorization: 'Bearer ' + auth.token,
         }
       )
-      navigate('/' + auth.userId + '/courses')
+      navigate('/courses/all')
     } catch (err) {
       console.log('err: ', err)
     }

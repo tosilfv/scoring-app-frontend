@@ -5,23 +5,36 @@ import './NavLinks.css'
 
 const NavLinks = (props) => {
   const auth = useContext(AuthContext)
-  console.log('auth: ', auth)
 
   return (
     <ul className="nav-links">
+      {auth.isLoggedIn && auth.isAdmin && (
+        <li>
+          <NavLink to="/" exact="true">
+            ALL USERS
+          </NavLink>
+        </li>
+      )}
       <li>
-        <NavLink to="/" exact="true">
-          ALL USERS
+        <NavLink to="/courses/all" exact="true">
+          ALL COURSES
         </NavLink>
       </li>
-      {auth.isLoggedIn && (
+      {auth.isLoggedIn && !auth.isAdmin && (
         <li>
           <NavLink to={`/${auth.userId}/courses`}>MY COURSES</NavLink>
         </li>
       )}
-      {auth.isLoggedIn && (
+      {auth.isLoggedIn && auth.isAdmin && (
         <li>
           <NavLink to="/courses/new">ADD COURSES</NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/profile" exact="true">
+            MY PROFILE
+          </NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (

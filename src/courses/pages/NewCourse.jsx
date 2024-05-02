@@ -70,7 +70,7 @@ const NewCourse = () => {
           'Content-Type': 'application/json',
         }
       )
-      navigate('/')
+      navigate('/courses/all')
     } catch (err) {
       console.log('err courseSubmitHandler: ', err)
     }
@@ -97,61 +97,65 @@ const NewCourse = () => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
-      <form className="course-form" onSubmit={courseSubmitHandler}>
-        {isLoading && <LoadingSpinner asOverlay />}
-        <Input
-          id="title"
-          placeholder="title"
-          element="input"
-          type="text"
-          label="Title"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid title."
-          onInput={inputHandler}
-        />
-        <Input
-          id="description"
-          placeholder="description"
-          element="textarea"
-          label="Description"
-          validators={[VALIDATOR_MINLENGTH(5)]}
-          errorText="Please enter a valid description (at least 5 characters)."
-          onInput={inputHandler}
-        />
-        {Array.from(numArr).map((lab) => {
-          return (
-            <React.Fragment key={lab}>
-              <div style={style.main}>LAB{lab}</div>
-              <Input
-                id={`labname${lab}`}
-                placeholder="lab name"
-                element="input"
-                label="Lab name"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Please enter a valid lab name."
-                onInput={inputHandler}
-              />
-              <Input
-                id={`labpassword${lab}`}
-                placeholder="lab password"
-                element="input"
-                label="Lab password"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Please enter a valid lab password."
-                onInput={inputHandler}
-              />
-            </React.Fragment>
-          )
-        })}
-        <div style={style.button}>
-          <Button onClick={addLabHandler}>+ ADD NEW LAB</Button>
-          <Button onClick={removeLabHandler}>- REMOVE NEW LAB</Button>
-        </div>
-        <Button type="submit" disabled={!formState.isValid}>
-          ADD COURSE
-        </Button>
-      </form>
+      {auth.isAdmin && (
+        <>
+          <ErrorModal error={error} onClear={clearError} />
+          <form className="course-form" onSubmit={courseSubmitHandler}>
+            {isLoading && <LoadingSpinner asOverlay />}
+            <Input
+              id="title"
+              placeholder="title"
+              element="input"
+              type="text"
+              label="Title"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a valid title."
+              onInput={inputHandler}
+            />
+            <Input
+              id="description"
+              placeholder="description"
+              element="textarea"
+              label="Description"
+              validators={[VALIDATOR_MINLENGTH(5)]}
+              errorText="Please enter a valid description (at least 5 characters)."
+              onInput={inputHandler}
+            />
+            {Array.from(numArr).map((lab) => {
+              return (
+                <React.Fragment key={lab}>
+                  <div style={style.main}>LAB{lab}</div>
+                  <Input
+                    id={`labname${lab}`}
+                    placeholder="lab name"
+                    element="input"
+                    label="Lab name"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Please enter a valid lab name."
+                    onInput={inputHandler}
+                  />
+                  <Input
+                    id={`labpassword${lab}`}
+                    placeholder="lab password"
+                    element="input"
+                    label="Lab password"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Please enter a valid lab password."
+                    onInput={inputHandler}
+                  />
+                </React.Fragment>
+              )
+            })}
+            <div style={style.button}>
+              <Button onClick={addLabHandler}>+ ADD NEW LAB</Button>
+              <Button onClick={removeLabHandler}>- REMOVE NEW LAB</Button>
+            </div>
+            <Button type="submit" disabled={!formState.isValid}>
+              ADD COURSE
+            </Button>
+          </form>
+        </>
+      )}
     </React.Fragment>
   )
 }

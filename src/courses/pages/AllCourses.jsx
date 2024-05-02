@@ -1,33 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHttpClient } from '../../shared/hooks/http-hook'
-import { useParams } from 'react-router-dom'
-import { AuthContext } from '../../shared/context/auth-context'
 import CourseList from '../components/CourseList'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 
 const UserCourses = () => {
   const [loadedCourses, setLoadedCourses] = useState()
-  const [userName, setUserName] = useState('')
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
-  const userId = useParams().userId
-  const auth = useContext(AuthContext)
 
   useEffect(() => {
     const fetchCourses = async () => {
       let responseData
       try {
         responseData = await sendRequest(
-          process.env.VITE_BACKEND_URL + `/courses/user/${userId}`
+          process.env.VITE_BACKEND_URL + `/courses/`
         )
       } catch (err) {
-        console.log('err UserCourses: ', err)
+        console.log('err AllCourses: ', err)
       }
       responseData && setLoadedCourses(responseData.courses)
-      responseData && setUserName(responseData.user.name)
     }
     fetchCourses()
-  }, [sendRequest, userId])
+  }, [sendRequest])
 
   const courseDeletedHandler = (deletedCourseId) => {
     setLoadedCourses((prevCourses) =>
@@ -43,13 +37,11 @@ const UserCourses = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedCourses && auth.isLoggedIn && (
+      {!isLoading && loadedCourses && (
         <CourseList
-          showAllCourses={false}
+          showAllCourses={true}
           items={loadedCourses}
           onDeleteCourse={courseDeletedHandler}
-          userId={userId}
-          userName={userName}
         />
       )}
     </React.Fragment>
