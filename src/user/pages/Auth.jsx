@@ -102,7 +102,8 @@ const Auth = () => {
         auth.login(
           responseData.userId,
           responseData.token,
-          responseData.isAdmin
+          responseData.isAdmin,
+          responseData.userName
         )
         navigate(`/profile`)
       } catch (err) {
