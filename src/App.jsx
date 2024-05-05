@@ -33,7 +33,7 @@ const App = () => {
   } else {
     routes = (
       <Routes>
-        <Route exact path="/" element={<Users />} />
+        <Route exact path="/" element={<AllCourses />} />
         <Route exact path="/auth" element={<Auth />} />
         <Route path="*" element={<Auth />} />
       </Routes>
