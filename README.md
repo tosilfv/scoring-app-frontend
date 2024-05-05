@@ -8,7 +8,7 @@ This is the Frontend of the Scoring Server.
 
 Install dependencies by running the command npm install.
 <br />
-Start the program by running the command npm run dev in the terminal.
+Start the program by running the command npm start in the terminal.
 
 ## Project details
 
@@ -27,3 +27,5 @@ This project is under construction.
 ## Known errors
 
 (1) If new labs are added and then removed, the "add courses" page's "add course" button will not be disabled even after all input fields are emptied.
+
+(2) Registering and Login fail in the online production version although locally they succeed.

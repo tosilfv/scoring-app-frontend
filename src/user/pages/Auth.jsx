@@ -104,6 +104,7 @@ const Auth = () => {
           responseData.token,
           responseData.isAdmin
         )
+        navigate(`/profile`)
       } catch (err) {
         console.log('err authSubmitHandler !isLoginMode: ', err)
       }
