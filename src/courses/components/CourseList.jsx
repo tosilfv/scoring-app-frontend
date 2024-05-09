@@ -39,7 +39,7 @@ const CourseList = (props) => {
         </>
       ) : (
         <>
-          <h3 style={style.mycourses}>User '{props.userName}' Courses</h3>
+          <h3 style={style.mycourses}>User {props.userName} Courses</h3>
           {props.items.map((course) => (
             <CourseItem
               key={course.id}

@@ -20,12 +20,6 @@ Big thanks to Maximilian Schwarzmüller for The MERN Fullstack Guide.
 <br />
 Favicon was created with https://favicon.io/favicon-generator/
 
-## NB
-
-This project is under construction.
-
 ## Known errors
 
 (1) If new labs are added and then removed, the "add courses" page's "add course" button will not be disabled even after all input fields are emptied.
-
-(2) Registering and Login fail in the online production version although locally they succeed.

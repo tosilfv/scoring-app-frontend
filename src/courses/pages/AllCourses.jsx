@@ -13,10 +13,10 @@ const UserCourses = () => {
       let responseData
       try {
         responseData = await sendRequest(
-          process.env.VITE_BACKEND_URL + `/courses/`
+          process.env.VITE_BACKEND_URL + '/courses/'
         )
       } catch (err) {
-        console.log('err AllCourses: ', err)
+        /* continue regardless of error */
       }
       responseData && setLoadedCourses(responseData.courses)
     }

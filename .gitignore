@@ -3,8 +3,8 @@
 .firebase
 .github
 coverage/
-cypress/videos/
 cypress/screenshots/
+cypress/videos/
 playwright-report/
 test-results/
 

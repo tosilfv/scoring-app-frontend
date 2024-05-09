@@ -37,7 +37,7 @@ const CourseItem = (props) => {
       )
       props.onDelete(props.id)
     } catch (err) {
-      console.log('err: ', err)
+      /* continue regardless of error */
     }
   }
 
@@ -60,7 +60,7 @@ const CourseItem = (props) => {
       )
       navigate('/profile')
     } catch (err) {
-      console.log('err labSubmitHandler: ', err)
+      /* continue regardless of error */
     }
   }
 
@@ -69,7 +69,7 @@ const CourseItem = (props) => {
     let result
     try {
       result = await sendRequest(
-        process.env.VITE_BACKEND_URL + `/courses/join`,
+        process.env.VITE_BACKEND_URL + '/courses/join',
         'POST',
         JSON.stringify({
           courseid: props.id,
@@ -79,9 +79,9 @@ const CourseItem = (props) => {
           'Content-Type': 'application/json',
         }
       )
-      navigate(`/profile`)
+      navigate('/profile')
     } catch (err) {
-      console.log('err joinCourseHandler: ', err)
+      /* continue regardless of error */
     }
   }
 
@@ -174,8 +174,8 @@ const CourseItem = (props) => {
             )}
             {!(auth.userId === props.creatorId) &&
               !props.users.includes(auth.userId) && (
-                <Button onClick={joinCourseHandler}>JOIN</Button>
-              )}
+              <Button onClick={joinCourseHandler}>JOIN</Button>
+            )}
           </div>
         </Card>
       </li>

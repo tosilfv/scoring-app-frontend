@@ -5,8 +5,8 @@ import { useAuth } from './shared/hooks/auth-hook'
 import LoadingSpinner from './shared/components/UIElements/LoadingSpinner'
 import MainNavigation from './shared/components/Navigation/MainNavigation'
 
-const Auth = React.lazy(() => import('./user/pages/Auth'))
 const AllCourses = React.lazy(() => import('./courses/pages/AllCourses'))
+const Auth = React.lazy(() => import('./user/pages/Auth'))
 const NewCourse = React.lazy(() => import('./courses/pages/NewCourse'))
 const UpdateCourse = React.lazy(() => import('./courses/pages/UpdateCourse'))
 const UserCourses = React.lazy(() => import('./courses/pages/UserCourses'))

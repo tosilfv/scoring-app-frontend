@@ -5,8 +5,8 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 import UsersList from '../components/UsersList'
 
 const Users = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient()
   const [loadedUsers, setLoadedUsers] = useState()
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -16,7 +16,7 @@ const Users = () => {
           process.env.VITE_BACKEND_URL + '/users'
         )
       } catch (err) {
-        console.log('err Users: ', err)
+        /* continue regardless of error */
       }
       responseData && setLoadedUsers(responseData.users)
     }

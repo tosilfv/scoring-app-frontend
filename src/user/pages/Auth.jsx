@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../shared/context/auth-context'
 import { useForm } from '../../shared/hooks/form-hook'
 import { useHttpClient } from '../../shared/hooks/http-hook'
@@ -13,12 +14,11 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/util/validators'
 import './Auth.css'
-import { useNavigate } from 'react-router-dom'
 
 const Auth = () => {
-  const auth = useContext(AuthContext)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const auth = useContext(AuthContext)
   const navigate = useNavigate()
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -81,9 +81,9 @@ const Auth = () => {
           responseData.isAdmin,
           responseData.userName
         )
-        navigate(`/profile`)
+        navigate('/profile')
       } catch (err) {
-        console.log('err authSubmitHandler isLoginMode: ', err)
+        /* continue regardless of error */
       }
     } else {
       try {
@@ -105,9 +105,9 @@ const Auth = () => {
           responseData.isAdmin,
           responseData.userName
         )
-        navigate(`/profile`)
+        navigate('/profile')
       } catch (err) {
-        console.log('err authSubmitHandler !isLoginMode: ', err)
+        /* continue regardless of error */
       }
     }
   }
