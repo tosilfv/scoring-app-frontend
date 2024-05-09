@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../../shared/context/auth-context'
-import Card from '../../shared/components/UIElements/Card'
 import { style } from '../../shared/styles/styles'
+import Card from '../../shared/components/UIElements/Card'
 
 const Profile = () => {
   const auth = useContext(AuthContext)

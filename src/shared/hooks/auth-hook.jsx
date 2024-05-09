@@ -5,14 +5,14 @@ let logoutTimer
 export const useAuth = () => {
   const [token, setToken] = useState(false)
   const [tokenExpirationDate, setTokenExpirationDate] = useState()
-  const [userId, setUserId] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [userId, setUserId] = useState(false)
   const [userName, setUserName] = useState(false)
 
   const login = useCallback((uid, token, isAdmin, userName, expirationDate) => {
     setToken(token)
-    setUserId(uid)
     setIsAdmin(isAdmin)
+    setUserId(uid)
     setUserName(userName)
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60)
@@ -32,8 +32,8 @@ export const useAuth = () => {
   const logout = useCallback(() => {
     setToken(null)
     setTokenExpirationDate(null)
-    setUserId(null)
     setIsAdmin(false)
+    setUserId(null)
     setUserName(null)
     localStorage.removeItem('userData')
   }, [])

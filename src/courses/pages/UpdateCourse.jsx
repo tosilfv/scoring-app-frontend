@@ -15,9 +15,9 @@ import {
 import './CourseForm.css'
 
 const UpdateCourse = () => {
-  const auth = useContext(AuthContext)
-  const { isLoading, error, sendRequest, clearError } = useHttpClient()
   const [loadedCourse, setLoadedCourse] = useState()
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const auth = useContext(AuthContext)
   const courseId = useParams().courseId
   const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ const UpdateCourse = () => {
           process.env.VITE_BACKEND_URL + `/courses/${courseId}`
         )
       } catch (err) {
-        console.log('err: ', err)
+        /* continue regardless of error */
       }
       responseData && setLoadedCourse(responseData.course)
       responseData &&
@@ -81,7 +81,7 @@ const UpdateCourse = () => {
       )
       navigate('/courses/all')
     } catch (err) {
-      console.log('err: ', err)
+      /* continue regardless of error */
     }
   }
 

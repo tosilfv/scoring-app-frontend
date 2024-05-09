@@ -8,8 +8,8 @@ import SideDrawer from './SideDrawer'
 import './MainNavigation.css'
 
 const MainNavigation = (props) => {
-  const auth = useContext(AuthContext)
   const [drawerIsOpen, setDrawerIsOpen] = useState(false)
+  const auth = useContext(AuthContext)
 
   const openDrawerHandler = () => {
     setDrawerIsOpen(true)

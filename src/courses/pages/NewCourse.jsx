@@ -15,11 +15,6 @@ import {
 import './CourseForm.css'
 
 const NewCourse = () => {
-  const [num, setNum] = useState(0)
-  const [numArr, setNumArr] = useState([num])
-  const auth = useContext(AuthContext)
-  const navigate = useNavigate()
-  const { isLoading, error, sendRequest, clearError } = useHttpClient()
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -33,6 +28,11 @@ const NewCourse = () => {
     },
     false
   )
+  const [num, setNum] = useState(0)
+  const [numArr, setNumArr] = useState([num])
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const auth = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const courseSubmitHandler = async (event) => {
     event.preventDefault()
@@ -72,7 +72,7 @@ const NewCourse = () => {
       )
       navigate('/courses/all')
     } catch (err) {
-      console.log('err courseSubmitHandler: ', err)
+      /* continue regardless of error */
     }
   }
 
